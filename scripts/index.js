@@ -4,7 +4,7 @@ let container = document.getElementById("container");
 // Webapp Title
 let difficultyContainer = document.createElement('div');
 let master = document.createElement('h1');
-master.textContent = "Master Math";
+master.textContent = "Math Master";
 container.append(master);
 
 
@@ -57,6 +57,7 @@ const startTest = async (difficulty) => {
     questionContainer.append(question);
     container.append(questionContainer);
     displayAnswerChoices(questionContainer, answer);
+    displayRestart(questionContainer);
 }
 
 const generateQuestion = (qContainer, diff) => {
@@ -103,9 +104,10 @@ const displayAnswerChoices = (qContainer, answer) => {
     qContainer.append(answerContainer);
 }
 
-const footer = document.createElement('div');
-const linkHome = document.createElement('a');
-footer.append(linkHome);
-linkHome.setAttribute('href', './index.html');
-linkHome.textContent = 'Restart';
-container.append(footer);
+const displayRestart = (qContainer) => {
+    const linkHome = document.createElement('a');
+    qContainer.append(linkHome);
+    linkHome.setAttribute('href', './index.html');
+    linkHome.textContent = 'Restart';
+    qContainer.append(linkHome);
+}
