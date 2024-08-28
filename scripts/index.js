@@ -1,26 +1,36 @@
 
-
 let container = document.getElementById("container");
 
-
-
+// Webapp Title
 let difficultyContainer = document.createElement('div');
-let selectDiff = document.createElement('h1');
-selectDiff.textContent = "Select difficulty Level";
+let master = document.createElement('h1');
+master.textContent = "Master Math";
+container.append(master);
 
+
+// Difficulty settings
+let selectDiff = document.createElement('h3');
 let easy = document.createElement('button');
-easy.textContent = 'Easy';
 let medium = document.createElement('button');
-medium.textContent = 'Medium';
 let hard = document.createElement('button');
+selectDiff.textContent = "Select difficulty Level";
+easy.textContent = 'Easy';
+medium.textContent = 'Medium';
 hard.textContent = 'Hard';
+easy.className = 'easy-button';
+medium.className = 'medium-button';
+hard.className = 'hard-button';
 
+
+
+// Add all difficulty elements to DOM
 container.append(difficultyContainer);
 difficultyContainer.append(selectDiff);
 difficultyContainer.append(easy);
 difficultyContainer.append(medium);
 difficultyContainer.append(hard);
 
+// Add listeners
 easy.addEventListener("click", (e) => {
     startTest('easy');
     difficultyContainer.remove();
@@ -41,7 +51,7 @@ const startTest = (difficulty) => {
     startMessage.textContent = `Starting a ${difficulty} test!`;
     container.append(startMessage);
     
-    // SHOW COUNTDOWN!! maybe a separate function call?
+    // COUNTDOWN todo
 
     const question = document.createElement('p');
     q = getQuestion(difficulty);
@@ -55,7 +65,7 @@ const getQuestion = (diff) => {
     if (diff == 'medium') multiplier *= 20;
     else if (diff =='hard') multiplier *= 30;
 
-    let operations = ["*", "+", "-", "/"];
+    let operations = ["x", "+", "-", "/"];
 
     let num1 = Math.floor(Math.random() * multiplier);
     let num2 = Math.floor(Math.random() * multiplier);
