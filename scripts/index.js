@@ -48,18 +48,18 @@ hard.addEventListener("click", (e) => {
 
 const startTest = (difficulty) => {
     let startMessage = document.createElement('p');
-    startMessage.textContent = `Starting a ${difficulty} test!`;
     container.append(startMessage);
     
     // COUNTDOWN todo
 
     const question = document.createElement('p');
-    q = getQuestion(difficulty);
+    question.className = 'question';
+    q = generateQuestion(difficulty);
     question.textContent = q;
     container.append(question);
 }
 
-const getQuestion = (diff) => {
+const generateQuestion = (diff) => {
     let multiplier = 10;
 
     if (diff == 'medium') multiplier *= 20;
@@ -71,8 +71,35 @@ const getQuestion = (diff) => {
     let num2 = Math.floor(Math.random() * multiplier);
     let operation = Math.floor(Math.random() * 3);
     let ans = 'this is the ans';
+
+    displayAnswerChoices(ans);
     
     return `${num1} ${operations[operation]} ${num2}`
+}
+
+const displayAnswerChoices = (answer) => {
+    // let questionContainer = document.createElement('div');
+    // let question = document.createElement('h3');
+
+    let answerContainer = document.createElement('div');
+    answerContainer.className = 'answer-container';
+
+    let answerChoice1 = document.createElement('div');
+    let answerChoice2 = document.createElement('div');
+    let answerChoice3 = document.createElement('div');
+    let answerChoice4 = document.createElement('div');
+
+    answerChoice1.className = 'answer-box';
+    answerChoice2.className = 'answer-box';
+    answerChoice3.className = 'answer-box';
+    answerChoice4.className = 'answer-box';
+
+    answerContainer.append(answerChoice1);
+    answerContainer.append(answerChoice2);
+    answerContainer.append(answerChoice3);
+    answerContainer.append(answerChoice4);
+
+    container.append(answerContainer);
 }
 
 const footer = document.createElement('div');
@@ -81,19 +108,3 @@ footer.append(linkHome);
 linkHome.setAttribute('href', './index.html');
 linkHome.textContent = 'Restart';
 container.append(footer);
-
-
-
-
-// let questionContainer = document.createElement('div');
-// let question = document.createElement('h3');
-// let answerContainer1 = document.createElement('div');
-// let answerContainer2 = document.createElement('div');
-// let answerContainer3 = document.createElement('div');
-// let answerContainer4 = document.createElement('div');
-
-// answerContainer1.className = 'answer-box';
-// answerContainer2.className = 'answer-box';
-// answerContainer3.className = 'answer-box';
-// answerContainer4.className = 'answer-box';
-
