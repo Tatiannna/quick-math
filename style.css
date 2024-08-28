@@ -46,7 +46,7 @@ button {
 }
 
 .question-container{
-    border: solid 2px red;
+    /* border: solid 2px red; */
 }
 
 .question {
@@ -56,12 +56,14 @@ button {
 
 .answer-container {
     display: flex;
+    justify-content: space-evenly;
+    margin: 30px;
 }
 
 .answer-box {
-    width: 50px;
-    height: 50px;
-    background-color: white;
+    width: 100px;
+    height: 100px;
+    background-color: rgb(40, 241, 231);
     border: solid 1px red;
     margin: 5px;
 }
