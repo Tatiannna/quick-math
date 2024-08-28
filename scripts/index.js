@@ -61,17 +61,17 @@ const startTest = async (difficulty) => {
 }
 
 const generateQuestion = (qContainer, diff) => {
-    let multiplier = 10;
-
-    if (diff == 'medium') multiplier *= 20;
-    else if (diff =='hard') multiplier *= 30;
+    let multiplier = 50;
+    
+    if (diff == 'medium') multiplier = 100;
+    else if (diff =='hard') multiplier = 200;
 
     let operations = ["x", "+", "-", "/"];
 
     let num1 = Math.floor(Math.random() * multiplier);
     let num2 = Math.floor(Math.random() * multiplier);
     let operation = Math.floor(Math.random() * 3);
-    let questionString = `${num1} ${operations[operation]} ${num2}`
+    let questionString = `${num1} ${operations[operation]} ${num2} =  ?`
     let ans = calculateAnswer(questionString);
 
     return [questionString, ans];
@@ -90,6 +90,11 @@ const displayAnswerChoices = (qContainer, answer) => {
     let answerChoice2 = document.createElement('div');
     let answerChoice3 = document.createElement('div');
     let answerChoice4 = document.createElement('div');
+
+    answerChoice1.textContent = 17;
+    answerChoice2.textContent = -5;
+    answerChoice3.textContent = 17;
+    answerChoice4.textContent = 3;
 
     answerChoice1.className = 'answer-box';
     answerChoice2.className = 'answer-box';

@@ -1,3 +1,7 @@
+document{
+    background-color: red;
+}
+
 #container{
     background-color: black;
     margin-left: 100px;
@@ -6,6 +10,7 @@
     text-align: center;
     margin-top: 100px;
     padding-top: 75px;
+    border-radius: 90px;
 }
 
 h1 {
@@ -64,8 +69,11 @@ button {
     width: 100px;
     height: 100px;
     background-color: rgb(40, 241, 231);
-    border: solid 1px red;
+    border: solid 1px white;
     margin: 5px;
+    border-radius: 18px;
+    padding-top: 10px;
+    font-size: 40px;
 }
 
 p {
@@ -74,6 +82,9 @@ p {
 
 a {
     color: white;
+    margin-top: auto;
+    /* position: absolute; */
+    /* bottom: 0px; */
 }
 
 
