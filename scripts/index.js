@@ -21,8 +21,6 @@ easy.className = 'easy-button';
 medium.className = 'medium-button';
 hard.className = 'hard-button';
 
-
-
 // Add all difficulty elements to DOM
 container.append(difficultyContainer);
 difficultyContainer.append(selectDiff);
@@ -46,20 +44,22 @@ hard.addEventListener("click", (e) => {
     difficultyContainer.remove();
 });
 
-const startTest = (difficulty) => {
-    let startMessage = document.createElement('p');
-    container.append(startMessage);
+const startTest = async (difficulty) => {
     
-    // COUNTDOWN todo
+    let questionContainer = document.createElement('div');
+    let questionString, answer;
+    [questionString, answer] = generateQuestion(questionContainer, difficulty);
 
-    const question = document.createElement('p');
+    questionContainer.className = 'question-container';
+    let question = document.createElement('p');
     question.className = 'question';
-    q = generateQuestion(difficulty);
-    question.textContent = q;
-    container.append(question);
+    question.textContent = questionString;
+    questionContainer.append(question);
+    container.append(questionContainer);
+    displayAnswerChoices(questionContainer, answer);
 }
 
-const generateQuestion = (diff) => {
+const generateQuestion = (qContainer, diff) => {
     let multiplier = 10;
 
     if (diff == 'medium') multiplier *= 20;
@@ -70,16 +70,17 @@ const generateQuestion = (diff) => {
     let num1 = Math.floor(Math.random() * multiplier);
     let num2 = Math.floor(Math.random() * multiplier);
     let operation = Math.floor(Math.random() * 3);
-    let ans = 'this is the ans';
+    let questionString = `${num1} ${operations[operation]} ${num2}`
+    let ans = calculateAnswer(questionString);
 
-    displayAnswerChoices(ans);
-    
-    return `${num1} ${operations[operation]} ${num2}`
+    return [questionString, ans];
 }
 
-const displayAnswerChoices = (answer) => {
-    // let questionContainer = document.createElement('div');
-    // let question = document.createElement('h3');
+const calculateAnswer = (questionString) => {
+    return 5;
+}
+
+const displayAnswerChoices = (qContainer, answer) => {
 
     let answerContainer = document.createElement('div');
     answerContainer.className = 'answer-container';
@@ -99,7 +100,7 @@ const displayAnswerChoices = (answer) => {
     answerContainer.append(answerChoice3);
     answerContainer.append(answerChoice4);
 
-    container.append(answerContainer);
+    qContainer.append(answerContainer);
 }
 
 const footer = document.createElement('div');

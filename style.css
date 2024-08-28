@@ -45,6 +45,10 @@ button {
     background-color: rgb(223, 64, 64);
 }
 
+.question-container{
+    border: solid 2px red;
+}
+
 .question {
     font-size: 75px;
     color:white;
