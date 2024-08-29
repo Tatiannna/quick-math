@@ -20,6 +20,7 @@ hard.textContent = 'Hard';
 easy.className = 'easy-button';
 medium.className = 'medium-button';
 hard.className = 'hard-button';
+let difficulty;
 
 // Add all difficulty elements to DOM
 container.append(difficultyContainer);
@@ -31,32 +32,59 @@ difficultyContainer.append(hard);
 // Add listeners
 easy.addEventListener("click", (e) => {
     startTest('easy');
+    difficulty = 'easy';
     difficultyContainer.remove();
 });
 
 medium.addEventListener("click", (e) => {
     startTest("medium");
+    difficulty = 'easy';
     difficultyContainer.remove();
 });
 
 hard.addEventListener("click", (e) => {
     startTest('hard');
+    difficulty = 'easy';
     difficultyContainer.remove();
 });
 
 const startTest = (difficulty) => {
     
     let questionContainer = document.createElement('div');
+    questionContainer.className = 'question-container';
+
+
+
     let questionString, answer;
     [questionString, answer] = generateQuestion(questionContainer, difficulty);
 
-    questionContainer.className = 'question-container';
+   
     let question = document.createElement('p');
     question.className = 'question';
     question.textContent = questionString;
+
+
     questionContainer.append(question);
     container.append(questionContainer);
     displayAnswerChoices(questionContainer, answer);
+    displayRestart(questionContainer);
+}
+
+const getNextQuestion = () => {
+
+    // get new question, answer
+    
+    questionContainer = document.querySelector('.question-container');
+    question = document.querySelector('.question');
+
+    let questionString, answers;
+    [questionString, answers] = generateQuestion(questionContainer, difficulty);
+
+    question.textContent = questionString;
+    questionContainer.append(question);
+
+    // container.append(questionContainer);
+    displayAnswerChoices(questionContainer, answers);
     displayRestart(questionContainer);
 }
 
@@ -72,17 +100,26 @@ const generateQuestion = (qContainer, diff) => {
     let num2 = Math.floor(Math.random() * multiplier);
     let operation = Math.floor(Math.random() * 3);
     let questionString = `${num1} ${operations[operation]} ${num2} =  ?`
-    let ans = calculateAnswer(questionString);
+    let answers = calculateAnswers(num1, num2, operations[operation]);
 
-    return [questionString, ans];
+    return [questionString, answers];
 }
 
-const calculateAnswer = (questionString) => {
+const calculateAnswers = (a, b, op) => {
+    answers = [];
 
-    return 5;
+    if(op == '+') answers.push(a + b)
+    else if (op == '-') answers.push(a - b);
+    else answers.push(a * b);
+
+    answers.push(answers[0] + 10);
+    answers.push(answers[0] - 10);
+    answers.push(Math.floor(answers[0] * 1.3));
+
+    return answers;
 }
 
-const displayAnswerChoices = (qContainer, answer) => {
+const displayAnswerChoices = (qContainer, answers) => {
 
     let answerContainer = document.createElement('div');
     answerContainer.className = 'answer-container';
@@ -107,15 +144,15 @@ const displayAnswerChoices = (qContainer, answer) => {
     ans3.className = 'ans';
     ans4.className = 'ans';
 
-    // Todo: randomly generate answer choices
+    // Todo: generate answer choices
     // Todo: Place choices randomly in boxes
     
     let correctAnswerDiv = answerBox3;
 
-    ans1.textContent = 89;
-    ans2.textContent = -5;
-    ans3.textContent = 17;
-    ans4.textContent = 3;
+    ans1.textContent = answers[0];
+    ans2.textContent = answers[1];
+    ans3.textContent = answers[2];
+    ans4.textContent = answers[3];
 
     answerBox1.append(ans1);
     answerBox2.append(ans2);
@@ -140,7 +177,8 @@ const handleChoiceSelection = (correctAnsDiv) => {
             if(e.target === correctAnsDiv) console.log("correct!")
             else console.log("incorrect");
             // todo: update score
-            // todo: show new question
+            // todo: show new question - might require refactoring
+            getNextQuestion();
         });
     });
 }
