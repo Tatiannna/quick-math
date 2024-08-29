@@ -62,17 +62,17 @@ button {
 .answer-container {
     display: flex;
     justify-content: space-evenly;
-    margin: 30px;
+    margin: 50px 0px;
 }
 
 .answer-box {
-    width: 100px;
-    height: 100px;
     background-color: rgb(40, 241, 231);
     border: solid 1px white;
-    margin: 5px;
     border-radius: 18px;
-    padding-top: 10px;
+}
+
+.ans {
+    margin: 35px;
     font-size: 40px;
 }
 
@@ -83,8 +83,6 @@ p {
 a {
     color: white;
     margin-top: auto;
-    /* position: absolute; */
-    /* bottom: 0px; */
 }
 
 

@@ -86,25 +86,40 @@ const displayAnswerChoices = (qContainer, answer) => {
     let answerContainer = document.createElement('div');
     answerContainer.className = 'answer-container';
 
-    let answerChoice1 = document.createElement('div');
-    let answerChoice2 = document.createElement('div');
-    let answerChoice3 = document.createElement('div');
-    let answerChoice4 = document.createElement('div');
+    let answerBox1 = document.createElement('div');
+    let answerBox2 = document.createElement('div');
+    let answerBox3 = document.createElement('div');
+    let answerBox4 = document.createElement('div');
 
-    answerChoice1.textContent = 17;
-    answerChoice2.textContent = -5;
-    answerChoice3.textContent = 17;
-    answerChoice4.textContent = 3;
+    answerBox1.className = 'answer-box';
+    answerBox2.className = 'answer-box';
+    answerBox3.className = 'answer-box';
+    answerBox4.className = 'answer-box';
 
-    answerChoice1.className = 'answer-box';
-    answerChoice2.className = 'answer-box';
-    answerChoice3.className = 'answer-box';
-    answerChoice4.className = 'answer-box';
+    let ans1 = document.createElement('p');
+    let ans2 = document.createElement('p');
+    let ans3 = document.createElement('p');
+    let ans4 = document.createElement('p');
 
-    answerContainer.append(answerChoice1);
-    answerContainer.append(answerChoice2);
-    answerContainer.append(answerChoice3);
-    answerContainer.append(answerChoice4);
+    ans1.className = 'ans';
+    ans2.className = 'ans';
+    ans3.className = 'ans';
+    ans4.className = 'ans';
+
+    ans1.textContent = 17;
+    ans2.textContent = -5;
+    ans3.textContent = 17;
+    ans4.textContent = 3;
+
+    answerBox1.append(ans1);
+    answerBox2.append(ans2);
+    answerBox3.append(ans3);
+    answerBox4.append(ans4);
+
+    answerContainer.append(answerBox1);
+    answerContainer.append(answerBox2);
+    answerContainer.append(answerBox3);
+    answerContainer.append(answerBox4);
 
     qContainer.append(answerContainer);
 }
