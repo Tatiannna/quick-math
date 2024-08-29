@@ -44,7 +44,7 @@ hard.addEventListener("click", (e) => {
     difficultyContainer.remove();
 });
 
-const startTest = async (difficulty) => {
+const startTest = (difficulty) => {
     
     let questionContainer = document.createElement('div');
     let questionString, answer;
@@ -78,6 +78,7 @@ const generateQuestion = (qContainer, diff) => {
 }
 
 const calculateAnswer = (questionString) => {
+
     return 5;
 }
 
@@ -106,7 +107,12 @@ const displayAnswerChoices = (qContainer, answer) => {
     ans3.className = 'ans';
     ans4.className = 'ans';
 
-    ans1.textContent = 17;
+    // Todo: randomly generate answer choices
+    // Todo: Place choices randomly in boxes
+    
+    let correctAnswerDiv = answerBox3;
+
+    ans1.textContent = 89;
     ans2.textContent = -5;
     ans3.textContent = 17;
     ans4.textContent = 3;
@@ -122,7 +128,23 @@ const displayAnswerChoices = (qContainer, answer) => {
     answerContainer.append(answerBox4);
 
     qContainer.append(answerContainer);
+    handleChoiceSelection(correctAnswerDiv);
 }
+
+const handleChoiceSelection = (correctAnsDiv) => {
+    let answers = document.querySelectorAll('.answer-box');
+
+    answers.forEach((ans) => {
+        ans.addEventListener('click', (e) => {
+            console.log(e.target);
+            if(e.target === correctAnsDiv) console.log("correct!")
+            else console.log("incorrect");
+            // todo: update score
+            // todo: show new question
+        });
+    });
+}
+
 
 const displayRestart = (qContainer) => {
     const linkHome = document.createElement('a');
