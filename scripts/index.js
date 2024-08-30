@@ -1,10 +1,10 @@
 
 let container = document.getElementById("container");
 
-// Webapp Title
+// Title
 let difficultyContainer = document.createElement('div');
 let master = document.createElement('h1');
-master.textContent = "Math Master";
+master.textContent = "Math Drills";
 container.append(master);
 
 
@@ -22,6 +22,12 @@ medium.className = 'medium-button';
 hard.className = 'hard-button';
 let difficulty;
 
+// For scoring
+const numQuestions = 10;
+let questionsAnswered = 0;
+let correctAnswerCount = 0;
+
+
 // Add all difficulty elements to DOM
 container.append(difficultyContainer);
 difficultyContainer.append(selectDiff);
@@ -38,13 +44,13 @@ easy.addEventListener("click", (e) => {
 
 medium.addEventListener("click", (e) => {
     startTest("medium");
-    difficulty = 'easy';
+    difficulty = 'medium';
     difficultyContainer.remove();
 });
 
 hard.addEventListener("click", (e) => {
     startTest('hard');
-    difficulty = 'easy';
+    difficulty = 'hard';
     difficultyContainer.remove();
 });
 
@@ -77,14 +83,22 @@ const getNextQuestion = () => {
     question.remove();
     answerContainer.remove();
 
-    let questionString, answers;
-    [questionString, answers] = generateQuestion(questionContainer, difficulty);
+    if (questionsAnswered < numQuestions){
+        let questionString, answers;
+        [questionString, answers] = generateQuestion(questionContainer, difficulty);
 
-    question.textContent = questionString;
-    questionContainer.append(question);
+        question.textContent = questionString;
+        questionContainer.append(question);
 
-    displayAnswerChoices(questionContainer, answers);
-    displayRestart(questionContainer);
+        displayAnswerChoices(questionContainer, answers);
+        displayRestart(questionContainer);
+    }else {
+        displayScore();
+    }
+}
+
+const displayScore = () => {
+    console.log( correctAnswerCount / numQuestions * 100);
 }
 
 const generateQuestion = (qContainer, diff) => {
@@ -169,17 +183,23 @@ const displayAnswerChoices = (qContainer, answers) => {
 
 const handleChoiceSelection = (correctAnsDiv) => {
     let answers = document.querySelectorAll('.answer-box');
+    let didAnswerCorrectly;
 
     answers.forEach((ans) => {
         ans.addEventListener('click', (e) => {
-            console.log(e.target);
-            if(e.target === correctAnsDiv) console.log("correct!")
-            else console.log("incorrect");
-            // todo: update score
-            // todo: show new question - might require refactoring
+            // console.log(e.target);
+            didAnswerCorrectly = e.target === correctAnsDiv ? true : false;
+            //else console.log("incorrect");
+            updateScore(didAnswerCorrectly);
             getNextQuestion();
         });
     });
+}
+
+const updateScore = (didAnswerCorrectly) => {
+    questionsAnswered++;
+    correctAnswerCount = didAnswerCorrectly ? correctAnswerCount + 1 : correctAnswerCount;
+    console.log(correctAnswerCount, questionsAnswered);
 }
 
 
