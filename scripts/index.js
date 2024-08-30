@@ -53,8 +53,6 @@ const startTest = (difficulty) => {
     let questionContainer = document.createElement('div');
     questionContainer.className = 'question-container';
 
-
-
     let questionString, answer;
     [questionString, answer] = generateQuestion(questionContainer, difficulty);
 
@@ -71,11 +69,13 @@ const startTest = (difficulty) => {
 }
 
 const getNextQuestion = () => {
-
-    // get new question, answer
     
     questionContainer = document.querySelector('.question-container');
     question = document.querySelector('.question');
+    answerContainer = document.querySelector('.answer-container');
+
+    question.remove();
+    answerContainer.remove();
 
     let questionString, answers;
     [questionString, answers] = generateQuestion(questionContainer, difficulty);
@@ -83,7 +83,6 @@ const getNextQuestion = () => {
     question.textContent = questionString;
     questionContainer.append(question);
 
-    // container.append(questionContainer);
     displayAnswerChoices(questionContainer, answers);
     displayRestart(questionContainer);
 }
