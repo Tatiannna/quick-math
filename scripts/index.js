@@ -84,13 +84,13 @@ const getNextQuestion = () => {
     answerContainer.remove();
 
     if (questionsAnswered < numQuestions){
-        let questionString, answers;
-        [questionString, answers] = generateQuestion(questionContainer, difficulty);
+        let questionString, answers, correctAnswer;
+        [questionString, answers, correctAnswer] = generateQuestion(questionContainer, difficulty);
 
         question.textContent = questionString;
         questionContainer.append(question);
 
-        displayAnswerChoices(questionContainer, answers);
+        displayAnswerChoices(questionContainer, answers, correctAnswer);
         // displayRestart(questionContainer);
     }else {
         questionContainer.remove()
@@ -111,73 +111,72 @@ const generateQuestion = (qContainer, diff) => {
     let num2 = Math.floor(Math.random() * multiplier);
     let operation = Math.floor(Math.random() * 3);
     let questionString = `${num1} ${operations[operation]} ${num2} =  ?`
-    let answers = calculateAnswers(num1, num2, operations[operation]);
+    let [answers, correctAnswer] = calculateAnswers(num1, num2, operations[operation]);
 
-    return [questionString, answers];
+    return [questionString, answers, correctAnswer];
 }
 
 const calculateAnswers = (a, b, op) => {
     answers = [];
+    let correctAnswer;
 
     if(op == '+') answers.push(a + b)
     else if (op == '-') answers.push(a - b);
     else answers.push(a * b);
+    correctAnswer = answers[0];
 
     answers.push(answers[0] + 10);
     answers.push(answers[0] - 10);
     answers.push(Math.floor(answers[0] * 1.3));
 
-    return answers;
+    answers = shuffle(answers);
+    return [answers, correctAnswer];
 }
 
-const displayAnswerChoices = (qContainer, answers) => {
+const shuffle = (array) => {
+    let currentIndex = array.length;
+  
+    while (currentIndex != 0) {
+  
+      let randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  }
+
+const displayAnswerChoices = (qContainer, answers, correctAnswer) => {
 
     let answerContainer = document.createElement('div');
     answerContainer.className = 'answer-container';
 
-    let answerBox1 = document.createElement('div');
-    let answerBox2 = document.createElement('div');
-    let answerBox3 = document.createElement('div');
-    let answerBox4 = document.createElement('div');
+    let correctAnswerDiv;
+    let answerBoxes = [];
+    let answerChoices = [];
 
-    answerBox1.className = 'answer-box';
-    answerBox2.className = 'answer-box';
-    answerBox3.className = 'answer-box';
-    answerBox4.className = 'answer-box';
+    for(let i = 0; i < 4; i++){
+        answerBoxes.push(document.createElement('div'));
+        answerBoxes[i].className = 'answer-box';
+    }
 
-    let ans1 = document.createElement('p');
-    let ans2 = document.createElement('p');
-    let ans3 = document.createElement('p');
-    let ans4 = document.createElement('p');
+    for(let i = 0; i < 4; i++){
+        answerChoices.push(document.createElement('p'))
+        answerChoices[i].className = 'ans';
+        answerChoices[i].textContent = answers[i];
+        if (answers[i] == correctAnswer){
+            correctAnswerDiv = answerBoxes[i];
+        }
+    }
 
-    ans1.className = 'ans';
-    ans2.className = 'ans';
-    ans3.className = 'ans';
-    ans4.className = 'ans';
-
-    // Todo: Place choices randomly in boxes
-    
-    let correctAnswerDiv = answerBox3;
-
-    ans1.textContent = answers[0];
-    ans2.textContent = answers[1];
-    ans3.textContent = answers[2];
-    ans4.textContent = answers[3];
-
-    answerBox1.append(ans1);
-    answerBox2.append(ans2);
-    answerBox3.append(ans3);
-    answerBox4.append(ans4);
-
-    answerContainer.append(answerBox1);
-    answerContainer.append(answerBox2);
-    answerContainer.append(answerBox3);
-    answerContainer.append(answerBox4);
+    answerBoxes.forEach((box, index) => {
+        box.append(answerChoices[index]);
+        answerContainer.append(box);
+    });
 
     qContainer.append(answerContainer);
     handleChoiceSelection(correctAnswerDiv );
-    // displayRestart(questionContainer);
-
 }
 
 const handleChoiceSelection = (correctAnsDiv) => {
