@@ -141,8 +141,7 @@ const shuffle = (array) => {
       let randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
   
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
     return array;
   }
@@ -200,7 +199,6 @@ const handleChoiceSelection = (correctAnsDiv) => {
 const updateScore = (didAnswerCorrectly) => {
     questionsAnswered++;
     correctAnswerCount = didAnswerCorrectly ? correctAnswerCount + 1 : correctAnswerCount;
-    console.log(correctAnswerCount, questionsAnswered);
 }
 
 const displayScore = () => {
@@ -208,11 +206,12 @@ const displayScore = () => {
     let scoreDiv = document.createElement('div');
     let scoreText = document.createElement('p');
     let scoreElement = document.createElement('p');
-    let score = correctAnswerCount / numQuestions * 100
+    let score = correctAnswerCount / numQuestions * 100;
 
-    console.log(score);
-    scoreText.textContent = "Your Score:"
-    scoreElement.textContent = `${score/10} / 10`;
+    scoreDiv.className = 'score-container'
+    scoreElement.className = 'score';
+    // scoreText.textContent = "Your Score:"
+    scoreElement.textContent = `${score/10} of 10 correct!`;
     scoreDiv.appendChild(scoreText);
     scoreDiv.appendChild(scoreElement);
     container.appendChild(scoreDiv);

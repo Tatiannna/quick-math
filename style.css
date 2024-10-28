@@ -1,5 +1,5 @@
-document{
-    background-color: red;
+body {
+    background-color: rgb(222, 222, 91);
 }
 
 #container{
@@ -74,6 +74,15 @@ button {
 .ans {
     margin: 35px;
     font-size: 40px;
+}
+
+.score {
+    /* color: yellow; */
+    color: rgb(222, 222, 91);
+    font-size: 85px;
+    margin-top: 50px;
+    margin-bottom: 80px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 p {
