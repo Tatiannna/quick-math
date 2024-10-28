@@ -93,13 +93,11 @@ const getNextQuestion = () => {
         displayAnswerChoices(questionContainer, answers);
         // displayRestart(questionContainer);
     }else {
+        questionContainer.remove()
         displayScore();
     }
 }
 
-const displayScore = () => {
-    console.log( correctAnswerCount / numQuestions * 100);
-}
 
 const generateQuestion = (qContainer, diff) => {
     let multiplier = 50;
@@ -157,7 +155,6 @@ const displayAnswerChoices = (qContainer, answers) => {
     ans3.className = 'ans';
     ans4.className = 'ans';
 
-    // Todo: generate answer choices
     // Todo: Place choices randomly in boxes
     
     let correctAnswerDiv = answerBox3;
@@ -206,6 +203,24 @@ const updateScore = (didAnswerCorrectly) => {
     correctAnswerCount = didAnswerCorrectly ? correctAnswerCount + 1 : correctAnswerCount;
     console.log(correctAnswerCount, questionsAnswered);
 }
+
+const displayScore = () => {
+
+    let scoreDiv = document.createElement('div');
+    let scoreText = document.createElement('p');
+    let scoreElement = document.createElement('p');
+    let score = correctAnswerCount / numQuestions * 100
+
+    console.log(score);
+    scoreText.textContent = "Your Score:"
+    scoreElement.textContent = `${score/10} / 10`;
+    scoreDiv.appendChild(scoreText);
+    scoreDiv.appendChild(scoreElement);
+    container.appendChild(scoreDiv);
+
+    displayRestart(scoreDiv);
+}
+
 
 const displayRestart = (qContainer) => {
     const linkHome = document.createElement('a');
