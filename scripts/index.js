@@ -224,6 +224,6 @@ const displayRestart = (qContainer) => {
     const linkHome = document.createElement('a');
     qContainer.append(linkHome);
     linkHome.setAttribute('href', './index.html');
-    linkHome.textContent = 'Restart';
+    linkHome.textContent = 'Play Again';
     qContainer.append(linkHome);
 }
