@@ -71,7 +71,7 @@ const startTest = (difficulty) => {
     questionContainer.append(question);
     container.append(questionContainer);
     displayAnswerChoices(questionContainer, answer);
-    displayRestart(questionContainer);
+    // displayRestart(questionContainer);
 }
 
 const getNextQuestion = () => {
@@ -91,7 +91,7 @@ const getNextQuestion = () => {
         questionContainer.append(question);
 
         displayAnswerChoices(questionContainer, answers);
-        displayRestart(questionContainer);
+        // displayRestart(questionContainer);
     }else {
         displayScore();
     }
@@ -178,21 +178,26 @@ const displayAnswerChoices = (qContainer, answers) => {
     answerContainer.append(answerBox4);
 
     qContainer.append(answerContainer);
-    handleChoiceSelection(correctAnswerDiv);
+    handleChoiceSelection(correctAnswerDiv );
+    // displayRestart(questionContainer);
+
 }
 
 const handleChoiceSelection = (correctAnsDiv) => {
     let answers = document.querySelectorAll('.answer-box');
-    let didAnswerCorrectly;
 
     answers.forEach((ans) => {
-        ans.addEventListener('click', (e) => {
-            // console.log(e.target);
-            didAnswerCorrectly = e.target === correctAnsDiv ? true : false;
-            //else console.log("incorrect");
-            updateScore(didAnswerCorrectly);
-            getNextQuestion();
-        });
+        if (ans != correctAnsDiv){
+            ans.addEventListener('click', (e) => {
+                updateScore(false);
+                getNextQuestion();
+            });
+        }else{
+            ans.addEventListener('click', (e) => {
+                updateScore(true);
+                getNextQuestion();
+            });
+        }
     });
 }
 
@@ -201,7 +206,6 @@ const updateScore = (didAnswerCorrectly) => {
     correctAnswerCount = didAnswerCorrectly ? correctAnswerCount + 1 : correctAnswerCount;
     console.log(correctAnswerCount, questionsAnswered);
 }
-
 
 const displayRestart = (qContainer) => {
     const linkHome = document.createElement('a');
